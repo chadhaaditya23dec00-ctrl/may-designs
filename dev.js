@@ -51,9 +51,10 @@ http.createServer((req, res) => {
   let rel = decodeURIComponent(req.url.split("?")[0]);
   if (rel === "/") rel = "/index.html";
 
-  // keep requests inside the project directory
-  const file = path.join(root, path.normalize(rel).replace(/^([/\\])+/, ""));
-  if (!file.startsWith(root)) { res.writeHead(403).end("Forbidden"); return; }
+  // serve dist/ — the same files production gets
+  const dist = path.join(root, "dist");
+  const file = path.join(dist, path.normalize(rel).replace(/^([/\\])+/, ""));
+  if (!file.startsWith(dist)) { res.writeHead(403).end("Forbidden"); return; }
 
   fs.readFile(file, (err, body) => {
     if (err) { res.writeHead(404, { "Content-Type": "text/plain" }).end("Not found"); return; }

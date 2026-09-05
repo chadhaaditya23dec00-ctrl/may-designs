@@ -100,10 +100,38 @@ fill("<!--CHIPS-->", chipsHTML);
 fill("<!--FOOTERCATS-->", footerCatsHTML);
 
 out = "<!doctype html>\n" + out;
-fs.writeFileSync(path.join(root, "index.html"), out, "utf8");
+
+/* ---------- write dist/ ----------
+   Everything served in production lives here and nothing else does,
+   so deploying never exposes src/ or the build scripts. */
+const dist = path.join(root, "dist");
+fs.mkdirSync(dist, { recursive: true });
+fs.writeFileSync(path.join(dist, "index.html"), out, "utf8");
+
+// copy photos, skipping ones already there and unchanged
+const photoSrcDir = path.join(root, "photos");
+const photoOutDir = path.join(dist, "photos");
+fs.mkdirSync(photoOutDir, { recursive: true });
+let copied = 0;
+for (const name of fs.readdirSync(photoSrcDir)) {
+  const from = path.join(photoSrcDir, name);
+  const to = path.join(photoOutDir, name);
+  const src = fs.statSync(from);
+  let dst = null;
+  try { dst = fs.statSync(to); } catch {}
+  if (!dst || dst.mtimeMs < src.mtimeMs || dst.size !== src.size) {
+    fs.copyFileSync(from, to);
+    copied++;
+  }
+}
+// drop photos that no longer exist in the source folder
+for (const name of fs.readdirSync(photoOutDir)) {
+  if (!fs.existsSync(path.join(photoSrcDir, name))) fs.rmSync(path.join(photoOutDir, name));
+}
 
 /* ---------- report ---------- */
 const kb = n => (n / 1024).toFixed(1) + "KB";
-console.log(`built index.html  ${kb(Buffer.byteLength(out))}`);
+console.log(`built dist/index.html  ${kb(Buffer.byteLength(out))}`);
 console.log(`  ${PRODUCTS.length} products pre-rendered`);
 console.log(`  ${listDir("src/styles").length} css + ${listDir("src/js").length} js files inlined`);
+console.log(`  ${copied} photo${copied === 1 ? "" : "s"} copied`);

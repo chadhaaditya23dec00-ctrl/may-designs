@@ -69,9 +69,9 @@ if (!pure) {
 }
 
 /* ---- the built file must be self-contained ---- */
-const outPath = path.join(root, "index.html");
+const outPath = path.join(root, "dist", "index.html");
 if (!fs.existsSync(outPath)) {
-  fail("index.html not built yet — run npm run build");
+  fail("dist/index.html not built yet — run npm run build");
 } else {
   const out = fs.readFileSync(outPath, "utf8");
 
@@ -118,7 +118,8 @@ if (!fs.existsSync(outPath)) {
     ...[...out.matchAll(/url\(&quot;(photos\/[^&]+)&quot;\)/g)].map(m => m[1]),
     ...[...out.matchAll(/url\("?(photos\/[^")]+)"?\)/g)].map(m => m[1]),
   ])];
-  const gone = refs.filter(r => !fs.existsSync(path.join(root, r)));
+  // must exist in dist/, since that is what actually gets served
+  const gone = refs.filter(r => !fs.existsSync(path.join(root, "dist", r)));
   if (gone.length) fail(`missing image file(s): ${gone.join(", ")}`);
   else pass(`all ${refs.length} referenced photos exist`);
 }

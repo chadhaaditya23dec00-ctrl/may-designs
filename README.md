@@ -12,8 +12,8 @@ No dependencies. Node 18 or newer.
 
 ## How it fits together
 
-`index.html` is **generated** — never edit it by hand, the next build overwrites
-it. Everything is assembled from `src/`:
+`dist/` is **generated** — never edit it by hand, and it isn't in git. The next
+build overwrites it. Everything is assembled from `src/`:
 
 ```
 src/
@@ -21,12 +21,16 @@ src/
   data/products.json    the catalogue — the source of truth
   styles/*.css          concatenated in filename order
   js/*.js               concatenated in filename order
-build.js                assembles the above into index.html
+photos/                 product photography
+api/*.js                serverless endpoints (Vercel)
+build.js                assembles src/ + photos/ into dist/
 check.js                guards the things that break silently
 dev.js                  local server + rebuild on save
-photos/                 product photography
-index.html              built output — committed, and what gets deployed
+dist/                   build output — index.html + photos. Not committed.
 ```
+
+Only `dist/` is served in production, so deploying never exposes `src/`, the
+build scripts, or anything else in the repo.
 
 The CSS and JS files are numbered because they are concatenated in order and
 share one scope. Renaming them changes the order; don't do it casually.
@@ -104,6 +108,20 @@ Each of these was a real fix. They look like untidiness and they are not.
 
 7. **The editor is the non-technical way in.** If you change how the page is
    assembled, check that `?edit` still works.
+
+## Deployment
+
+Vercel, auto-deploying from `main`. Chosen over Netlify because `api/*.js`
+becomes `/api/*` with no routing config, which is what the Razorpay endpoints
+want.
+
+- `vercel.json` sets the build command and points the CDN at `dist/`
+- pushing to `main` deploys; opening a PR gives you a preview URL
+- `GET /api/health` reports whether the Razorpay keys are set, as booleans —
+  use it to confirm the serverless side is alive without exposing anything
+
+Secrets go in **Vercel → Settings → Environment Variables**, never in this repo.
+`RAZORPAY_KEY_SECRET` must not be committed and must never reach the browser.
 
 ## Not done yet
 

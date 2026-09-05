@@ -6,7 +6,7 @@ node_modules/
 .env.*
 !.env.example
 
-# Build output
+# Build output — regenerate with `npm run build`
 dist/
 build/
 .vercel/
