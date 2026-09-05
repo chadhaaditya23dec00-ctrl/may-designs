@@ -1,0 +1,240 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAY DESIGNS — handmade jewellery</title>
+<meta name="description" content="Handmade earrings and magnets, made one at a time.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+
+
+<style>
+<!--STYLES-->
+</style>
+
+<header class="header" id="header">
+  <div class="wrap header__inner">
+    <a class="mark" href="#top">MAY DESIGNS</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#browse">Shop</a>
+      <a href="#custom">Custom</a>
+      <a href="#story">Made by hand</a>
+      <a href="#care">Care</a>
+    </nav>
+    <button class="cart-btn" id="cartOpen" aria-haspopup="dialog">
+      Bag <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="wrap hero">
+    <div class="hero__grid">
+      <div>
+        <h1 class="display hero__type"><span>may</span><span class="l2">designs</span></h1>
+        <p class="hero__lede" data-edit>Earrings and magnets, worked slowly out of beads, wire and clay. Every piece is finished by hand, so no two land quite the same.</p>
+        <a class="btn" href="#browse">Shop the collection</a>
+      </div>
+      <div class="hero__art" style="background-image:url(&quot;photos/lilac-blossom.webp&quot;);background-size:cover;background-position:center" role="img" aria-label="Placeholder for the hero photograph"></div>
+    </div>
+  </section>
+
+  <!-- PICKED FOR YOU — only rendered for returning visitors -->
+  <section class="wrap band" id="pickedBand" hidden>
+    <div class="band__head">
+      <div>
+        <h2 class="display band__title" data-edit>Picked for you</h2>
+        <p class="band__note" data-edit>Based on what you looked at last time you were here.</p>
+      </div>
+      <button class="link-btn" id="clearHistory">Clear my history</button>
+    </div>
+    <div class="grid" id="pickedGrid"></div>
+  </section>
+
+  <!-- BROWSE -->
+  <section class="wrap band" id="browse">
+    <div class="band__head">
+      <div>
+        <h2 class="display band__title" data-edit>Browse everything</h2>
+        <p class="band__note" data-edit>Earrings and magnets, made in small batches. If something is sold out, it usually comes back within a fortnight.</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="chips" id="chips" role="group" aria-label="Filter by category"><!--CHIPS--></div>
+      <label class="sr-only" for="search">Search pieces</label>
+      <input class="field" id="search" type="search" placeholder="Search pieces">
+      <label class="sr-only" for="sort">Sort</label>
+      <select class="field" id="sort">
+        <option value="new">Newest first</option>
+        <option value="low">Price: low to high</option>
+        <option value="high">Price: high to low</option>
+      </select>
+    </div>
+
+    <div class="grid" id="grid">
+<!--GRID-->
+    </div>
+<div class="empty" id="empty" hidden>
+      <p>Nothing matches that search yet.</p>
+      <button class="btn btn--ghost" id="resetFilters">Show everything</button>
+    </div>
+  </section>
+
+
+  <!-- CUSTOM COMMISSIONS -->
+  <section class="wrap band" id="custom">
+    <div class="band__head">
+      <div>
+        <h2 class="display band__title" data-edit>Customised for you</h2>
+        <p class="band__note" data-edit>Send a photograph and it gets painted by hand onto a pair of miniature frames. Get your own custom pair now.</p>
+      </div>
+    </div>
+
+    <div class="commission">
+      <div class="examples">
+        <figure>
+          <div class="commission__art">
+            <img src="photos/custom-example.webp" alt="Hand-painted miniature landscape earrings in gold rectangular frames">
+          </div>
+          <figcaption>Gold rectangle</figcaption>
+        </figure>
+        <figure>
+          <div class="commission__art">
+            <img src="photos/bird-cameo.webp" alt="Hand-painted birds over a blue sky in silver oval frames">
+          </div>
+          <figcaption>Silver oval</figcaption>
+        </figure>
+      </div>
+
+      <div>
+        <p class="pd__label" style="margin-top:0">Your photograph</p>
+        <label class="drop" id="drop">
+          <input type="file" id="customFile" accept="image/*">
+          <p class="drop__title">Choose a photo</p>
+          <p class="drop__hint" data-edit>Or drag one here. A clear, well-lit picture paints best.</p>
+        </label>
+        <div id="chosen"></div>
+
+        <p class="pd__label">Frame shape</p>
+        <div class="shapes" id="shapes" role="group" aria-label="Choose a frame shape"></div>
+
+        <label class="pd__label" for="customNote">Anything I should know</label>
+        <textarea class="field" id="customNote" placeholder="Which part of the photo matters most, who it's for, when you need it."></textarea>
+
+        <button class="btn btn--wide" id="customSend" style="margin-top:18px">Send my request</button>
+        <p class="fineprint" id="customStatus">Painted to order, usually two to three weeks.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="wrap band" id="story">
+    <div class="duo">
+      <div class="duo__art" role="img" aria-label="Placeholder for a workbench photograph"></div>
+      <div>
+        <h2 class="display band__title" data-edit>Made by hand</h2>
+        <p data-edit>Every piece starts on a small workbench: beads sorted by colour, wire cut to length, clay rolled and cut by hand. Small runs mean slight differences between pieces — a bead sitting a fraction differently, a wrap turned a little tighter. That is the point of it.</p>
+        <p data-edit>Orders are packed and posted within three working days.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARE -->
+  <section class="wrap band" id="care">
+    <div class="band__head">
+      <div>
+        <h2 class="display band__title" data-edit>Looking after it</h2>
+        <p class="band__note" data-edit>Handmade pieces last a long time with very little effort.</p>
+      </div>
+    </div>
+    <div class="duo">
+      <div>
+        <p data-edit style="color:var(--ink-soft);margin-top:0">Keep pieces away from water, perfume and hand cream — put jewellery on last, take it off first. Store earrings in their own pouch so posts don't bend and stones don't scratch.</p>
+        <p data-edit style="color:var(--ink-soft)">Wipe silver with a soft dry cloth if it dulls. Don't use liquid polish on plated or beaded work; it strips the finish. Keep magnets away from cards, watches and laptops.</p>
+      </div>
+      <div>
+        <p data-edit style="color:var(--ink-soft);margin-top:0">Anything that arrives damaged gets replaced or refunded — message within seven days of delivery with a photo.</p>
+        <p data-edit style="color:var(--ink-soft)">Made-to-order and personalised pieces can't be returned, so check sizing before ordering.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="mark" href="#top">MAY DESIGNS</a>
+        <p data-edit style="color:var(--ink-soft);font-size:14px;max-width:30ch;margin:10px 0 0">Handmade earrings and magnets, made one at a time.</p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <ul id="footerCats"><!--FOOTERCATS--></ul>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <ul>
+          <li><a href="#care">Care and returns</a></li>
+          <li><a href="#story">About the studio</a></li>
+          <li><a href="#browse">Sizing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Find us</h3>
+        <ul>
+          <li><a href="https://instagram.com/maydesigns_in" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="mailto:hello@example.com">Email the studio</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__base">
+      <span>© <span id="year"></span> MAY DESIGNS</span>
+      <span>Made by hand</span>
+    </div>
+  </div>
+</footer>
+
+<!-- DRAWERS -->
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+  <div class="drawer__head">
+    <h2 id="cartTitle">Your bag</h2>
+    <button class="x" data-close aria-label="Close bag">&times;</button>
+  </div>
+  <div class="drawer__body" id="cartBody"></div>
+  <div class="drawer__foot" id="cartFoot"></div>
+</aside>
+
+<aside class="drawer" id="pdDrawer" role="dialog" aria-modal="true" aria-labelledby="pdTitle" aria-hidden="true">
+  <div class="drawer__head">
+    <h2 id="pdTitle">Details</h2>
+    <button class="x" data-close aria-label="Close details">&times;</button>
+  </div>
+  <div class="drawer__body" id="pdBody"></div>
+  <div class="drawer__foot" id="pdFoot"></div>
+</aside>
+
+
+<div class="editor" id="editor" aria-hidden="true">
+  <div class="editor__head">
+    <h2>Edit your products</h2>
+    <button class="x" id="editorClose" aria-label="Close editor">&times;</button>
+  </div>
+  <div class="editor__body" id="editorBody"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+<script id="site-data" type="application/json">
+<!--DATA-->
+</script>
+
+<script>
+<!--SCRIPTS-->
+</script>

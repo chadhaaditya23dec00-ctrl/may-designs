@@ -1,0 +1,12 @@
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast{
+  position:fixed;left:50%;bottom:26px;z-index:120;
+  transform:translate(-50%,20px);
+  background:var(--ink);color:var(--paper);
+  padding:12px 22px;border-radius:999px;font-size:14.5px;
+  opacity:0;pointer-events:none;
+  transition:opacity .26s var(--ease),transform .26s var(--ease);
+}
+.toast[data-show="true"]{opacity:1;transform:translate(-50%,0)}

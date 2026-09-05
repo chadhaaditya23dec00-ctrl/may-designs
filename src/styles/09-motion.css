@@ -1,0 +1,45 @@
+/* ============================================================
+   MOTION
+   Everything here is wrapped so it switches off for anyone who
+   has asked their device to reduce motion.
+   ============================================================ */
+@keyframes slowspin{ to{ transform:rotate(360deg) } }
+@keyframes pop{ 0%{transform:scale(1)} 38%{transform:scale(.93)} 100%{transform:scale(1)} }
+@keyframes badgePop{ 0%,100%{transform:scale(1)} 45%{transform:scale(1.45)} }
+@keyframes riseIn{ from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+@keyframes toastIn{ 0%{opacity:0;transform:translate(-50%,26px) scale(.9)}
+                    60%{opacity:1;transform:translate(-50%,-4px) scale(1.03)}
+                    100%{opacity:1;transform:translate(-50%,0) scale(1)} }
+
+html{scroll-behavior:smooth}
+
+@media(prefers-reduced-motion:no-preference){
+  /* the bowls turn slowly, and stop when you point at one */
+  .card__frame--round img{animation:slowspin 46s linear infinite}
+  .card:hover .card__frame--round img{animation-play-state:paused}
+  .pd__art--round img{animation:slowspin 60s linear infinite}
+  .hero__art{animation:slowspin 110s linear infinite}
+  .hero__art:hover{animation-play-state:paused}
+
+  /* cards fade up as the grid draws */
+  .grid article{animation:riseIn .5s var(--ease) both}
+  .grid article:nth-child(1){animation-delay:.02s}
+  .grid article:nth-child(2){animation-delay:.06s}
+  .grid article:nth-child(3){animation-delay:.10s}
+  .grid article:nth-child(4){animation-delay:.14s}
+  .grid article:nth-child(5){animation-delay:.18s}
+  .grid article:nth-child(6){animation-delay:.22s}
+  .grid article:nth-child(n+7){animation-delay:.26s}
+
+  .toast[data-show="true"]{animation:toastIn .42s var(--ease)}
+}
+
+/* press feedback — these are tiny and stay on either way */
+.card__frame{transition:transform .18s var(--ease)}
+.card:active .card__frame{transform:scale(.965)}
+.is-pop{animation:pop .34s var(--ease)}
+.cart-count.bump{animation:badgePop .42s var(--ease)}
+.chip:active,.opt:active,.shape:active{transform:scale(.95)}
+.chip,.opt,.shape{transition:transform .16s var(--ease),border-color .2s var(--ease),background .2s var(--ease),color .2s var(--ease)}
+.qty button:active{transform:scale(.88)}
+.x:active{transform:scale(.9)}

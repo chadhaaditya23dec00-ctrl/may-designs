@@ -1,0 +1,48 @@
+/* ============================================================
+   EDIT MODE  (only active when the address ends in ?edit)
+   ============================================================ */
+.editbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:200;
+  background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;gap:14px;
+  padding:11px var(--gap);font-size:14px;flex-wrap:wrap;
+}
+.editbar strong{font-weight:600}
+.editbar .spacer{flex:1 1 auto}
+.editbar button{
+  background:var(--paper);color:var(--ink);
+  border-radius:999px;padding:8px 17px;font-size:14px;font-weight:500;
+}
+.editbar button.ghost{background:none;color:var(--paper);box-shadow:inset 0 0 0 1px rgba(245,241,242,.4)}
+body.editing{padding-bottom:64px}
+body.editing [data-edit]{
+  outline:1px dashed rgba(94,69,96,.5);outline-offset:3px;border-radius:3px;
+}
+body.editing [data-edit]:focus{outline:2px solid var(--plum)}
+
+.editor{position:fixed;inset:0;z-index:190;background:var(--paper);overflow-y:auto;display:none}
+.editor[data-open="true"]{display:block}
+.editor__head{
+  position:sticky;top:0;background:var(--paper);z-index:2;
+  border-bottom:1px solid var(--line);padding:16px var(--gap);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.editor__head h2{margin:0;font-size:19px;font-weight:500}
+.editor__body{padding:var(--gap);max-width:900px;margin-inline:auto}
+.erow{
+  display:grid;grid-template-columns:86px 1fr;gap:16px;
+  padding:18px 0;border-bottom:1px solid var(--line);align-items:start;
+}
+.erow__thumb{width:86px;height:86px;border-radius:var(--radius-sm);overflow:hidden;background:#FBF8F3}
+.erow__thumb img{width:100%;height:100%;object-fit:cover}
+.efields{display:grid;gap:9px}
+.efields input,.efields textarea,.efields select{
+  width:100%;border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:9px 11px;font:inherit;font-size:14.5px;background:var(--card);color:var(--ink);
+}
+.efields textarea{min-height:62px;resize:vertical;line-height:1.5}
+.epair{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:600px){.epair{grid-template-columns:1fr}.erow{grid-template-columns:64px 1fr;gap:12px}.erow__thumb{width:64px;height:64px}}
+.elabel{font-size:12px;color:var(--ink-soft);margin:0 0 -4px}
+.echeck{display:flex;align-items:center;gap:8px;font-size:14px}
+.echeck input{width:auto}

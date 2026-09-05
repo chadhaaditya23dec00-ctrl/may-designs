@@ -1,0 +1,26 @@
+/* ============================================================
+   EDITORIAL + FOOTER
+   ============================================================ */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,52px);align-items:center}
+@media(max-width:760px){.duo{grid-template-columns:1fr}}
+.duo__art{
+  height:0;padding-top:80%;border-radius:var(--radius);
+  background:linear-gradient(135deg,#D9CBDE,#C9D2DB);
+}
+.duo p{color:var(--ink-soft);max-width:46ch}
+
+.footer{border-top:1px solid var(--line);padding-block:44px 34px;margin-top:12px}
+.footer__grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.footer h3{font-size:14px;font-weight:600;margin:0 0 10px}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.footer a{font-size:14px;color:var(--ink-soft);text-decoration:none}
+.footer a:hover{color:var(--ink)}
+.footer__base{
+  margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:13px;color:var(--ink-soft);
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}

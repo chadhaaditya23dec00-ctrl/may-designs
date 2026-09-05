@@ -1,0 +1,291 @@
+{
+  "images": {
+    "hero": "photos/lilac-blossom.webp",
+    "story": ""
+  },
+  "categories": {
+    "earrings": "Earrings",
+    "magnets": "Magnets",
+    "custom": "Customised"
+  },
+  "products": [
+    {
+      "id": "e1",
+      "name": "Peach blossom drops",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/peach-blossom.webp",
+      "img2": "photos/peach-blossom-2.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "A five-petal blossom shading from coral at the edges to cream at the centre, hung under a single freshwater pearl. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e2",
+      "name": "Blush hydrangea drops",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/blush-hydrangea.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "Soft ruffled petals in the palest blush, with a textured centre. The quietest pair of the set. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e3",
+      "name": "Pink blossom drops",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/pink-blossom.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "Deep pink at the petal edges fading to white, with a small gold-toned centre. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e4",
+      "name": "Sunset blossom drops",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/sunset-blossom.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "Pink and marigold blended into each petal, so the colour shifts depending on the light. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e5",
+      "name": "Lilac blossom and leaf",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/lilac-blossom.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "A lilac bloom with a darker centre and a sculpted green leaf beneath. The longest drop in the set. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e6",
+      "name": "Blue rose and leaf",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/blue-rose.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "A layered rose in dusty blue-grey with a green leaf below. Each rose is rolled petal by petal. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e7",
+      "name": "Butter blossom drops",
+      "cat": "earrings",
+      "price": 699,
+      "img": "photos/butter-blossom.webp",
+      "options": [],
+      "material": "Polymer clay, freshwater pearl, gold-plated hooks",
+      "size": "",
+      "desc": "A small warm-cream flower on a pearl. The one to wear when you want almost nothing. Hand-painted and resin-coated for a lasting shine, with delicate pearl details.",
+      "round": true
+    },
+    {
+      "id": "e8",
+      "name": "Sun charm drops",
+      "cat": "earrings",
+      "price": 0,
+      "img": "photos/sun-charm.webp",
+      "options": [],
+      "material": "Gold-plated brass, clay centre",
+      "size": "",
+      "desc": "A rayed sun with a speckled cream centre, on a fine hook. The only non-floral pair so far.",
+      "round": true
+    },
+    {
+      "id": "e9",
+      "name": "Lotus pond cameo",
+      "cat": "earrings",
+      "price": 1899,
+      "framed": true,
+      "img": "photos/lotus-cameo.webp",
+      "options": [],
+      "material": "Hand-painted cabochon, oxidised silver-tone filigree",
+      "size": "",
+      "desc": "Blossoms painted over deep green, set behind glass in a scalloped filigree frame. The largest pair in the collection."
+    },
+    {
+      "id": "e10",
+      "name": "Koi and lily cameo",
+      "cat": "earrings",
+      "price": 1899,
+      "framed": true,
+      "img": "photos/koi-cameo.webp",
+      "options": [],
+      "material": "Hand-painted cabochon, oxidised silver-tone filigree",
+      "size": "",
+      "desc": "Orange koi turning between lily pads on a teal ground. Painted freehand, so the two never match exactly."
+    },
+    {
+      "id": "e11",
+      "name": "Flying birds cameo",
+      "cat": "earrings",
+      "price": 1899,
+      "framed": true,
+      "img": "photos/bird-cameo.webp",
+      "options": [],
+      "material": "Hand-painted cabochon, oxidised silver-tone filigree",
+      "size": "",
+      "desc": "Birds crossing an open blue sky, brushed in a few strokes and sealed under glass."
+    },
+    {
+      "id": "e12",
+      "name": "Hillside cameo",
+      "cat": "earrings",
+      "price": 1899,
+      "framed": true,
+      "img": "photos/hillside-cameo.webp",
+      "options": [],
+      "material": "Hand-painted cabochon, oxidised silver-tone filigree",
+      "size": "",
+      "desc": "A small landscape on each oval: green slopes, a pale horizon, a wash of sky."
+    },
+    {
+      "id": "e13",
+      "name": "Pink heart drops",
+      "cat": "earrings",
+      "price": 0,
+      "framed": true,
+      "img": "photos/pink-heart.webp",
+      "options": [
+        "Hook",
+        "Huggie hoop"
+      ],
+      "material": "Enamelled heart, silver-tone setting",
+      "size": "",
+      "desc": "A glossy pink heart in a slim silver frame. Comes on a drop hook or a small huggie hoop."
+    },
+    {
+      "id": "e14",
+      "name": "Opal heart drops",
+      "cat": "earrings",
+      "price": 0,
+      "framed": true,
+      "img": "photos/white-heart.webp",
+      "options": [],
+      "material": "Enamelled heart, silver-tone setting",
+      "size": "",
+      "desc": "Marbled white with a faint shimmer through it, so the surface shifts as it catches light."
+    },
+    {
+      "id": "e15",
+      "name": "Blue heart danglers",
+      "cat": "earrings",
+      "price": 799,
+      "framed": true,
+      "img": "photos/navy-heart.webp",
+      "options": [],
+      "material": "Enamelled heart, silver-tone setting",
+      "size": "",
+      "desc": "Elegance in a small royal blue heart, on a huggie hoop that sits close to the lobe."
+    },
+    {
+      "id": "e16",
+      "name": "Nimbu mirchi drops",
+      "cat": "earrings",
+      "price": 0,
+      "framed": true,
+      "img": "photos/nimbu-mirchi.webp",
+      "options": [],
+      "material": "Polymer clay, gold-plated hooks",
+      "size": "",
+      "desc": "A lemon over two green chillies, the charm people hang for luck, shrunk down to earring size. Each chilli is rolled and curved by hand."
+    },
+    {
+      "id": "e17",
+      "name": "Pressed petal heart drops",
+      "cat": "earrings",
+      "price": 0,
+      "framed": true,
+      "img": "photos/petal-heart.webp",
+      "options": [],
+      "material": "Resin with pressed petals, silver-tone setting",
+      "size": "",
+      "desc": "Pink petals suspended in clear resin, set in a slim silver heart. No two hearts catch the light the same way."
+    },
+    {
+      "id": "c1",
+      "name": "Painted from your photo",
+      "cat": "custom",
+      "price": 0,
+      "framed": true,
+      "img": "photos/custom-example.webp",
+      "options": [
+        "Gold rectangle",
+        "Silver oval"
+      ],
+      "material": "Hand-painted miniature, sealed under gloss, gold- or silver-tone frame",
+      "size": "",
+      "desc": "Send a photograph and it gets painted by hand onto a pair of tiny frames. This pair was made from a photo of a riverbank. Allow two to three weeks."
+    },
+    {
+      "id": "m1",
+      "name": "Breakfast Club",
+      "cat": "magnets",
+      "price": 0,
+      "img": "photos/magnet-breakfast-club.webp",
+      "options": [],
+      "material": "Polymer clay on a printed card, neodymium magnets",
+      "size": "",
+      "desc": "A croissant, a waffle and a coffee bean, mounted on a hand-drawn cafe card. Sculpted one at a time."
+    },
+    {
+      "id": "m2",
+      "name": "Bread Basket",
+      "cat": "magnets",
+      "price": 0,
+      "img": "photos/magnet-bread-basket.webp",
+      "options": [],
+      "material": "Polymer clay on a printed card, neodymium magnets",
+      "size": "",
+      "desc": "A baguette, rolls and a soft-boiled egg, set against a drawn bakery basket."
+    },
+    {
+      "id": "m3",
+      "name": "Pancakes, Waffles & Butter",
+      "cat": "magnets",
+      "price": 0,
+      "img": "photos/magnet-pancakes.webp",
+      "options": [],
+      "material": "Polymer clay on a printed card, neodymium magnets",
+      "size": "",
+      "desc": "A stack of pancakes, a golden waffle and a pat of butter, on a card drawn with maple syrup running down it."
+    },
+    {
+      "id": "m4",
+      "name": "Italian Edition",
+      "cat": "magnets",
+      "price": 0,
+      "img": "photos/magnet-italian.webp",
+      "options": [],
+      "material": "Polymer clay on a printed card, neodymium magnets",
+      "size": "",
+      "desc": "A farfalle bow and a ripe tomato, against a trattoria drawn with a scooter parked outside."
+    },
+    {
+      "id": "m5",
+      "name": "Cookie Collection",
+      "cat": "magnets",
+      "price": 0,
+      "img": "photos/magnet-cookies.webp",
+      "options": [],
+      "material": "Polymer clay on a printed card, neodymium magnets",
+      "size": "",
+      "desc": "Two chocolate chip cookies, each chip pressed in by hand, on a card scattered with more of them."
+    }
+  ]
+}
