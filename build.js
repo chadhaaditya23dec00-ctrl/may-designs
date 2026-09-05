@@ -43,12 +43,18 @@ const scripts = listDir("src/js")
    src/js/03-render.js. They must stay in step; verify.js checks
    that they do by diffing this output against the browser's. */
 const rupees = n => n > 0 ? "₹" + n.toLocaleString("en-IN") : "Price on request";
+
+/* the live page always ships plain paths; only a downloaded copy
+   carries data URIs, and that swap happens in the browser */
+const PHOTO_MAP = Object.create(null);
+const photoSrc = u => PHOTO_MAP[u] || u;
+
 const frameClass = p => (p.framed ? " card__frame--framed" : "") + (p.round ? " card__frame--round" : "");
 
 function artHTML(p){
   if(p.img){
-    const second = p.img2 ? `<img class="alt" src="${p.img2}" alt="" loading="lazy">` : "";
-    return `<img src="${p.img}" alt="${p.name}" loading="lazy">${second}`;
+    const second = p.img2 ? `<img class="alt" src="${photoSrc(p.img2)}" data-src="${p.img2}" alt="" loading="lazy">` : "";
+    return `<img src="${photoSrc(p.img)}" data-src="${p.img}" alt="${p.name}" loading="lazy">${second}`;
   }
   return `<div class="ph ph--${p.cat}"><span>photo</span></div>`;
 }

@@ -1,14 +1,25 @@
 /* ============================================================
    3. RENDERING
    ============================================================ */
+
+/* A copy of the site downloaded from edit mode carries its photos
+   inlined as data URIs, because it travels without the photos/
+   folder beside it. Each photo is embedded once, in the markup;
+   adoptInlinedPhotos() in the boot step reads them back into this
+   map so re-rendering doesn't replace them with paths that only
+   resolve on the server. On the live site the map stays empty and
+   photoSrc() is a no-op. */
+const PHOTO_MAP = Object.create(null);
+const photoSrc = u => PHOTO_MAP[u] || u;
+
 function frameClass(p){
   return (p.framed ? " card__frame--framed" : "") + (p.round ? " card__frame--round" : "");
 }
 
 function artHTML(p){
   if(p.img){
-    const second = p.img2 ? `<img class="alt" src="${p.img2}" alt="" loading="lazy">` : "";
-    return `<img src="${p.img}" alt="${p.name}" loading="lazy">${second}`;
+    const second = p.img2 ? `<img class="alt" src="${photoSrc(p.img2)}" data-src="${p.img2}" alt="" loading="lazy">` : "";
+    return `<img src="${photoSrc(p.img)}" data-src="${p.img}" alt="${p.name}" loading="lazy">${second}`;
   }
   return `<div class="ph ph--${p.cat}"><span>photo</span></div>`;
 }

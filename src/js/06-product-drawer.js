@@ -14,9 +14,9 @@ function openProduct(id){
 
   document.getElementById("pdTitle").textContent = CATEGORIES[p.cat];
   document.getElementById("pdBody").innerHTML = `
-    <div class="pd__art${p.framed ? ' pd__art--framed' : ''}${p.round ? ' pd__art--round' : ''}">${p.img ? `<img src="${p.img}" alt="${p.name}">` : artHTML(p)}</div>
+    <div class="pd__art${p.framed ? ' pd__art--framed' : ''}${p.round ? ' pd__art--round' : ''}">${p.img ? `<img src="${photoSrc(p.img)}" alt="${p.name}">` : artHTML(p)}</div>
     ${p.img2 ? `<div class="pd__art">
-      <img src="${p.img2}" alt="${p.name}, second view">
+      <img src="${photoSrc(p.img2)}" alt="${p.name}, second view">
     </div>` : ""}
     <h3 class="display pd__name">${p.name}</h3>
     <p class="pd__price">${rupees(p.price)}</p>

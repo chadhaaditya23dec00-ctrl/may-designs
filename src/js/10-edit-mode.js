@@ -47,7 +47,7 @@ function moneyIn(v){
 function renderEditor(){
   document.getElementById("editorBody").innerHTML = PRODUCTS.map((p, i) => `
     <div class="erow" data-i="${i}">
-      <div class="erow__thumb">${p.img ? `<img src="${p.img}" alt="">` : ""}</div>
+      <div class="erow__thumb">${p.img ? `<img src="${photoSrc(p.img)}" alt="">` : ""}</div>
       <div class="efields">
         <p class="elabel">Name</p>
         <input data-f="name" value="${escapeAttr(p.name)}">
@@ -106,10 +106,40 @@ function applyEdits(){
   renderChips(); renderGrid(); renderPicked(); renderCart(); renderEditor();
 }
 
+/* Read every photo the page uses and turn it into a data URI, so
+   the downloaded file survives being opened on its own, with no
+   photos/ folder next to it. Each photo is fetched once. */
+async function inlinePhotos(){
+  const paths = new Set();
+  PRODUCTS.forEach(p => { if(p.img) paths.add(p.img); if(p.img2) paths.add(p.img2); });
+  if(SITE_IMAGES.hero)  paths.add(SITE_IMAGES.hero);
+  if(SITE_IMAGES.story) paths.add(SITE_IMAGES.story);
+
+  const map = Object.create(null);
+  const failed = [];
+  await Promise.all([...paths].map(async src => {
+    if(src.startsWith("data:")){ map[src] = src; return; }
+    try{
+      const res = await fetch(src);
+      if(!res.ok) throw new Error(res.status);
+      const blob = await res.blob();
+      map[src] = await new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload  = () => resolve(fr.result);
+        fr.onerror = reject;
+        fr.readAsDataURL(blob);
+      });
+    }catch(e){ failed.push(src); }
+  }));
+  return { map, failed };
+}
+
 /* Produce a clean copy of the page: strip anything the scripts
    drew at runtime, so the downloaded file matches the original. */
-function buildDownload(){
+async function buildDownload(){
   applyEdits();
+  toast("Packing photos into the file…");
+  const { map: photos, failed } = await inlinePhotos();
   const doc = document.documentElement.cloneNode(true);
 
   doc.querySelectorAll("#pickedGrid, #cartBody, #cartFoot, #shapes, #chosen, #editorBody, #pdBody, #pdFoot")
@@ -127,23 +157,46 @@ function buildDownload(){
   const setBg = (sel, path) => {
     const el = doc.querySelector(sel);
     if(!el) return;
-    if(path) el.setAttribute("style",
-      `background-image:url("${path}");background-size:cover;background-position:center`);
-    else el.removeAttribute("style");
+    if(path){
+      el.setAttribute("style",
+        `background-image:url("${photos[path] || path}");background-size:cover;background-position:center`);
+      // the boot step reads this back so a re-render keeps the inlined photo
+      el.setAttribute("data-photo", path);
+    } else {
+      el.removeAttribute("style");
+      el.removeAttribute("data-photo");
+    }
   };
   setBg(".hero__art", SITE_IMAGES.hero);
   setBg(".duo__art",  SITE_IMAGES.story);
+
+  /* Swap every <img> over to its data URI. Cards carry data-src;
+     the fixed images in the commission section don't, so fall back
+     to their src and stamp data-src on so the boot step adopts
+     them too, and no photo is embedded twice. */
+  doc.querySelectorAll("img").forEach(img => {
+    const key = img.getAttribute("data-src") || img.getAttribute("src");
+    if(key && photos[key]){
+      img.setAttribute("src", photos[key]);
+      if(!img.hasAttribute("data-src")) img.setAttribute("data-src", key);
+    }
+  });
   doc.querySelectorAll(".editbar").forEach(el => el.remove());
   const ed = doc.querySelector("#editor"); if(ed) ed.setAttribute("aria-hidden","true");
   const body = doc.querySelector("body"); if(body) body.classList.remove("editing");
   const hdr = doc.querySelector("#header"); if(hdr) hdr.removeAttribute("data-stuck");
   const pk  = doc.querySelector("#pickedBand"); if(pk) pk.setAttribute("hidden","");
   const cc  = doc.querySelector("#cartCount"); if(cc) cc.textContent = "0";
+  // a toast on screen at clone time would otherwise be baked into the file
+  const ts  = doc.querySelector("#toast");
+  if(ts){ ts.textContent = ""; ts.setAttribute("data-show", "false"); }
   const st  = doc.querySelector("#customStatus");
   if(st) st.textContent = "Painted to order, usually two to three weeks.";
 
   saveBlob(new Blob(["<!doctype html>\n" + doc.outerHTML], {type:"text/html"}), "index.html");
-  toast("Downloaded. Upload this file to publish the changes.");
+  toast(failed.length
+    ? `Downloaded, but ${failed.length} photo${failed.length > 1 ? "s" : ""} could not be read`
+    : "Downloaded. This file works on its own — photos included.");
 }
 
 function saveBlob(blob, filename){
@@ -196,7 +249,12 @@ document.addEventListener("click", e => {
     document.getElementById("editor").dataset.open = "false";
     document.getElementById("editor").setAttribute("aria-hidden","true");
   }
-  if(e.target.id === "downloadSite") buildDownload();
+  if(e.target.id === "downloadSite"){
+    buildDownload().catch(err => {
+      console.error(err);
+      toast("Could not build the download — see the console");
+    });
+  }
   if(e.target.id === "downloadData") downloadData();
   if(e.target.id === "exitEdit"){
     applyEdits();

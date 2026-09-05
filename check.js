@@ -32,7 +32,7 @@ const sandbox = {
 };
 // Only the pure markup helpers are needed; the DOM-touching ones are left out.
 const pure = renderSrc.match(
-  /function frameClass[\s\S]*?\n}\n[\s\S]*?function artHTML[\s\S]*?\n}\n[\s\S]*?function cardHTML[\s\S]*?\n}/
+  /const PHOTO_MAP[\s\S]*?function cardHTML[\s\S]*?\n}/
 );
 if (!pure) {
   fail("could not find frameClass/artHTML/cardHTML in src/js/03-render.js");
