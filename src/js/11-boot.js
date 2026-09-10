@@ -17,6 +17,26 @@ function adoptInlinedPhotos(){
   });
 }
 
+/* The hero is the baked-in bowl photo on a single slide that turns slowly
+   (one revolution every 56s, paused on hover — see 09-motion.css). The bowl
+   is a circle cut out on a transparent square, so turning it about its
+   centre leaves the rim still and only moves the pair resting inside. The
+   frame's gradient and placeholder label are cleared so the cut-out sits
+   straight on the page. */
+function mountHero(){
+  const art = document.querySelector(".hero__art");
+  if(!art || !SITE_IMAGES.hero) return;
+
+  const slide = document.createElement("div");
+  slide.className = "hero__slide";
+  slide.setAttribute("aria-hidden", "true");
+  slide.style.backgroundImage = `url("${photoSrc(SITE_IMAGES.hero)}")`;
+  art.appendChild(slide);
+
+  art.classList.add("has-show");
+  art.style.backgroundImage = "none";
+}
+
 (async function init(){
   document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -35,6 +55,7 @@ function adoptInlinedPhotos(){
     el.style.backgroundSize = "cover";
     el.style.backgroundPosition = "center";
   }
+  mountHero();
 
   document.getElementById("footerCats").innerHTML = Object.entries(CATEGORIES)
     .map(([k,label]) => `<li><a href="#browse" data-cat="${k}" class="chip-link">${label}</a></li>`).join("");

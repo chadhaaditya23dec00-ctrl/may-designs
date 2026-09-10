@@ -20,6 +20,10 @@ html{scroll-behavior:smooth}
   .pd__art--round img{animation:slowspin 60s linear infinite}
   .hero__art{animation:slowspin 110s linear infinite}
   .hero__art:hover{animation-play-state:paused}
+  /* once the hero slide is mounted, it turns instead of the frame */
+  .hero__art.has-show{animation:none}
+  .hero__slide{animation:slowspin 56s linear infinite}
+  .hero__art:hover .hero__slide{animation-play-state:paused}
 
   /* cards fade up as the grid draws */
   .grid article{animation:riseIn .5s var(--ease) both}

@@ -29,6 +29,17 @@
   position:absolute;inset:auto 0 16px;text-align:center;
   font-size:12px;letter-spacing:.06em;color:#fff;opacity:.75;
 }
+
+/* the hero bowl, mounted at boot by mountHero(). It turns in the motion
+   guard in 09-motion.css with the other bowls. Once it is up the frame is
+   bare — just the cut-out bowl on the page, no gradient panel behind it. */
+.hero__art.has-show{background:none}
+.hero__art.has-show::after{display:none}
+.hero__slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  will-change:transform;
+}
 @media(max-width:860px){
   .hero__grid{grid-template-columns:1fr}
   .hero__art{order:-1}
