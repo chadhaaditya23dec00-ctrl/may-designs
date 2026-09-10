@@ -59,7 +59,7 @@ function pickFile(file){
   }
   customFile = file;
   showChosen();
-  setStatus("Painted to order, usually two to three weeks.");
+  setStatus("Made to order, usually one to two weeks.");
 }
 
 function setStatus(msg){ document.getElementById("customStatus").textContent = msg; }

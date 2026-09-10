@@ -8,6 +8,7 @@
   background:linear-gradient(135deg,#D9CBDE,#C9D2DB);
 }
 .duo p{color:var(--ink-soft);max-width:46ch}
+.care-list{margin:0;padding-left:1.15em;color:var(--ink-soft);display:grid;gap:6px;max-width:46ch}
 
 .footer{border-top:1px solid var(--line);padding-block:44px 34px;margin-top:12px}
 .footer__grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}

@@ -20,16 +20,16 @@ function openProduct(id){
     </div>` : ""}
     <h3 class="display pd__name">${p.name}</h3>
     <p class="pd__price">${rupees(p.price)}</p>
-    <p class="pd__desc">${p.desc}</p>
+    ${p.desc ? `<p class="pd__desc">${p.desc}</p>` : ""}
     ${p.options.length ? `
       <p class="pd__label">Choose one</p>
       <div class="opts" id="opts">
         ${p.options.map((o,i) => `<button class="opt" data-opt="${o}" aria-pressed="${i===0}">${o}</button>`).join("")}
       </div>` : ""}
     <ul class="spec">
-      <li><span>Material</span><span>${p.material}</span></li>
+      ${p.material ? `<li><span>Material</span><span>${p.material}</span></li>` : ""}
       ${p.size ? `<li><span>Size</span><span>${p.size}</span></li>` : ""}
-      <li><span>Ships</span><span>Within 3 working days</span></li>
+      <li><span>Dispatches</span><span>Within 7 working days</span></li>
     </ul>`;
 
   document.getElementById("pdFoot").innerHTML = p.sold

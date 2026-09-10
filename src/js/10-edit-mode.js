@@ -169,6 +169,12 @@ async function buildDownload(){
   };
   setBg(".hero__art", SITE_IMAGES.hero);
   setBg(".duo__art",  SITE_IMAGES.story);
+  // the hero slide is mounted at boot; strip it so the copy mounts its own
+  const heroArt = doc.querySelector(".hero__art");
+  if(heroArt){
+    heroArt.querySelectorAll(".hero__slide").forEach(el => el.remove());
+    heroArt.classList.remove("has-show");
+  }
 
   /* Swap every <img> over to its data URI. Cards carry data-src;
      the fixed images in the commission section don't, so fall back
@@ -191,7 +197,7 @@ async function buildDownload(){
   const ts  = doc.querySelector("#toast");
   if(ts){ ts.textContent = ""; ts.setAttribute("data-show", "false"); }
   const st  = doc.querySelector("#customStatus");
-  if(st) st.textContent = "Painted to order, usually two to three weeks.";
+  if(st) st.textContent = "Made to order, usually one to two weeks.";
 
   saveBlob(new Blob(["<!doctype html>\n" + doc.outerHTML], {type:"text/html"}), "index.html");
   toast(failed.length
