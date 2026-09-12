@@ -62,7 +62,7 @@ function mountHero(){
     slides[i].classList.remove("is-on");
     i = (i + 1) % slides.length;
     slides[i].classList.add("is-on");
-  }, 3800);
+  }, 5000);
 }
 
 (async function init(){
