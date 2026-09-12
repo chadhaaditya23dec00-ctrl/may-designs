@@ -1,69 +1,109 @@
 /* ============================================================
-   HERO
+   9. BOOT
    ============================================================ */
-.hero{padding-block:clamp(40px,7vw,84px) clamp(56px,8vw,110px)}
-.hero__grid{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:clamp(24px,4vw,56px);
-  align-items:center;
-}
-.hero__type{
-  font-size:clamp(64px,12.5vw,158px);
-  margin:0;
-}
-.hero__type span{display:block}
-.hero__type .l2{padding-left:.32em}
-.hero__lede{
-  max-width:31ch;margin:26px 0 30px;
-  font-size:clamp(15.5px,1.4vw,17.5px);color:var(--ink-soft);
-}
-.hero__art{
-  height:0;padding-top:100%;border-radius:50%;overflow:hidden;
-  background:linear-gradient(148deg,var(--blush),#D9CBDE 55%,#C9D2DB);
-  position:relative;
-}
-.hero__art[style*="url"]::after{display:none}
-.hero__art::after{
-  content:"hero photo";
-  position:absolute;inset:auto 0 16px;text-align:center;
-  font-size:12px;letter-spacing:.06em;color:#fff;opacity:.75;
+/* In a copy downloaded from edit mode the photos are inlined as
+   data URIs in the markup, and the photos/ folder is not there.
+   Harvest them before the first render, otherwise renderGrid()
+   would swap them back for paths that resolve to nothing. Does
+   nothing on the live site, where the srcs are ordinary paths. */
+function adoptInlinedPhotos(){
+  document.querySelectorAll("img[data-src]").forEach(img => {
+    const src = img.getAttribute("src") || "";
+    if(src.startsWith("data:")) PHOTO_MAP[img.getAttribute("data-src")] = src;
+  });
+  document.querySelectorAll("[data-photo]").forEach(el => {
+    const m = /url\(["']?(data:[^"')]+)["']?\)/.exec(el.style.backgroundImage || "");
+    if(m) PHOTO_MAP[el.getAttribute("data-photo")] = m[1];
+  });
 }
 
-/* the hero bowl, mounted at boot by mountHero(). It turns in the motion
-   guard in 09-motion.css with the other bowls. Once it is up the frame is
-   bare — just the cut-out bowl on the page, no gradient panel behind it. */
-.hero__art.has-show{background:none}
-.hero__art.has-show::after{display:none}
-.hero__slide{
-  position:absolute;inset:0;
-  background-size:cover;background-position:center;
-  will-change:transform,opacity;
-  opacity:0;
-  transition:opacity 1.1s var(--ease);
-}
-.hero__slide.is-on{opacity:1}
-@media(prefers-reduced-motion:reduce){
-  .hero__slide{transition:none}
-}
-@media(max-width:860px){
-  .hero__grid{grid-template-columns:1fr}
-  .hero__art{order:-1}
+/* The hero is the baked-in bowl photo on a single slide that turns slowly
+   (one revolution every 56s, paused on hover — see 09-motion.css). The bowl
+   is a circle cut out on a transparent square, so turning it about its
+   centre leaves the rim still and only moves the pair resting inside. The
+   frame's gradient and placeholder label are cleared so the cut-out sits
+   straight on the page. */
+function mountHero(){
+  const art = document.querySelector(".hero__art");
+  if(!art) return;
+
+  /* The bowl cycles through the round pieces — the same shots that
+     carry the round frame in the grid. Falls back to the single
+     hero image if none are marked round, so this can never end up
+     showing an empty circle. */
+  let shots = PRODUCTS.filter(p => p.round && p.img).map(p => p.img);
+  if(!shots.length && SITE_IMAGES.hero) shots = [SITE_IMAGES.hero];
+  if(!shots.length) return;
+
+  const slides = shots.map((src, i) => {
+    const el = document.createElement("div");
+    el.className = "hero__slide" + (i === 0 ? " is-on" : "");
+    el.setAttribute("aria-hidden", "true");
+    el.style.backgroundImage = `url("${photoSrc(src)}")`;
+    art.appendChild(el);
+    return el;
+  });
+
+  art.classList.add("has-show");
+  art.style.backgroundImage = "none";
+
+  if(slides.length < 2) return;
+
+  /* Anyone who has asked for reduced motion gets the first shot and
+     nothing moving. */
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let i = 0, paused = false;
+  art.addEventListener("mouseenter", () => { paused = true;  });
+  art.addEventListener("mouseleave", () => { paused = false; });
+
+  setInterval(() => {
+    if(paused || document.hidden) return;
+    slides[i].classList.remove("is-on");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("is-on");
+  }, 5000);
 }
 
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  background:var(--plum);color:#fff;
-  border-radius:999px;padding:13px 28px;
-  font-size:15px;font-weight:500;text-decoration:none;
-  transition:background .2s var(--ease),transform .15s var(--ease);
-}
-.btn:hover{background:var(--plum-dark)}
-.btn:active{transform:scale(.975)}
-.btn--wide{width:100%;padding-block:15px}
-.btn--ghost{
-  background:none;color:var(--ink);
-  border:1px solid var(--line);
-}
-.btn--ghost:hover{background:var(--card);border-color:var(--ink)}
-.btn[disabled]{opacity:.45;pointer-events:none}
+(async function init(){
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  adoptInlinedPhotos();
+
+  // Drop the hero / story photos in if they've been set above
+  if(SITE_IMAGES.hero){
+    const el = document.querySelector(".hero__art");
+    el.style.backgroundImage = `url("${photoSrc(SITE_IMAGES.hero)}")`;
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center";
+  }
+  if(SITE_IMAGES.story){
+    const el = document.querySelector(".duo__art");
+    el.style.backgroundImage = `url("${photoSrc(SITE_IMAGES.story)}")`;
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center";
+  }
+  mountHero();
+
+  document.getElementById("footerCats").innerHTML = Object.entries(CATEGORIES)
+    .map(([k,label]) => `<li><a href="#browse" data-cat="${k}" class="chip-link">${label}</a></li>`).join("");
+
+  // Draw the catalogue first. Nothing here waits on storage, so a slow
+  // or unavailable storage layer can never leave the page empty.
+  renderChips();
+  renderGrid();
+
+  try { await load(); } catch(e) { /* carry on with an empty cart */ }
+  renderCart();
+  renderPicked();
+  renderShapes();
+  armSecretToggle();
+  if(EDIT_MODE) startEditMode();
+
+  document.querySelectorAll(".chip-link").forEach(a => {
+    a.addEventListener("click", () => {
+      state.filter = a.dataset.cat;
+      renderChips(); renderGrid();
+    });
+  });
+})();
