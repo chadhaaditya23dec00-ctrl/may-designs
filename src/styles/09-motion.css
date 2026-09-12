@@ -14,14 +14,9 @@
 html{scroll-behavior:smooth}
 
 @media(prefers-reduced-motion:no-preference){
-  /* Only the hero bowl turns. The product circles sit still — a grid
-     of spinning thumbnails was more noise than charm. */
-  .hero__art{animation:slowspin 110s linear infinite}
-  .hero__art:hover{animation-play-state:paused}
-  /* once the hero slide is mounted, it turns instead of the frame */
-  .hero__art.has-show{animation:none}
-  .hero__slide{animation:slowspin 56s linear infinite}
-  .hero__art:hover .hero__slide{animation-play-state:paused}
+  /* Nothing rotates any more — not the hero bowl, not the product
+     circles. The hero changes by fading one piece into the next,
+     which is the only movement left on the page. */
 
   /* cards fade up as the grid draws */
   .grid article{animation:riseIn .5s var(--ease) both}
