@@ -38,7 +38,13 @@
 .hero__slide{
   position:absolute;inset:0;
   background-size:cover;background-position:center;
-  will-change:transform;
+  will-change:transform,opacity;
+  opacity:0;
+  transition:opacity 1.1s var(--ease);
+}
+.hero__slide.is-on{opacity:1}
+@media(prefers-reduced-motion:reduce){
+  .hero__slide{transition:none}
 }
 @media(max-width:860px){
   .hero__grid{grid-template-columns:1fr}
