@@ -25,16 +25,44 @@ function adoptInlinedPhotos(){
    straight on the page. */
 function mountHero(){
   const art = document.querySelector(".hero__art");
-  if(!art || !SITE_IMAGES.hero) return;
+  if(!art) return;
 
-  const slide = document.createElement("div");
-  slide.className = "hero__slide";
-  slide.setAttribute("aria-hidden", "true");
-  slide.style.backgroundImage = `url("${photoSrc(SITE_IMAGES.hero)}")`;
-  art.appendChild(slide);
+  /* The bowl cycles through the round pieces — the same shots that
+     carry the round frame in the grid. Falls back to the single
+     hero image if none are marked round, so this can never end up
+     showing an empty circle. */
+  let shots = PRODUCTS.filter(p => p.round && p.img).map(p => p.img);
+  if(!shots.length && SITE_IMAGES.hero) shots = [SITE_IMAGES.hero];
+  if(!shots.length) return;
+
+  const slides = shots.map((src, i) => {
+    const el = document.createElement("div");
+    el.className = "hero__slide" + (i === 0 ? " is-on" : "");
+    el.setAttribute("aria-hidden", "true");
+    el.style.backgroundImage = `url("${photoSrc(src)}")`;
+    art.appendChild(el);
+    return el;
+  });
 
   art.classList.add("has-show");
   art.style.backgroundImage = "none";
+
+  if(slides.length < 2) return;
+
+  /* Anyone who has asked for reduced motion gets the first shot and
+     nothing moving. */
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let i = 0, paused = false;
+  art.addEventListener("mouseenter", () => { paused = true;  });
+  art.addEventListener("mouseleave", () => { paused = false; });
+
+  setInterval(() => {
+    if(paused || document.hidden) return;
+    slides[i].classList.remove("is-on");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("is-on");
+  }, 3800);
 }
 
 (async function init(){
