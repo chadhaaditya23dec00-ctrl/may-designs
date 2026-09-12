@@ -14,10 +14,8 @@
 html{scroll-behavior:smooth}
 
 @media(prefers-reduced-motion:no-preference){
-  /* the bowls turn slowly, and stop when you point at one */
-  .card__frame--round img{animation:slowspin 46s linear infinite}
-  .card:hover .card__frame--round img{animation-play-state:paused}
-  .pd__art--round img{animation:slowspin 60s linear infinite}
+  /* Only the hero bowl turns. The product circles sit still — a grid
+     of spinning thumbnails was more noise than charm. */
   .hero__art{animation:slowspin 110s linear infinite}
   .hero__art:hover{animation-play-state:paused}
   /* once the hero slide is mounted, it turns instead of the frame */
