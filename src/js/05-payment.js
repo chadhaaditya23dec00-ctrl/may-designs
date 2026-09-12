@@ -26,6 +26,8 @@
    amount that came from the browser — recalculate it server-side
    from the product IDs.
    ============================================================ */
+/* Reassigned by 13-checkout.js, which owns the real flow. This stub
+   only runs if that module fails to load. */
 function startCheckout(){
-  toast("Payments aren't connected yet — see the notes in the code");
+  toast("Checkout isn't available right now — please message us");
 }
